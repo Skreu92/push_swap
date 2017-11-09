@@ -69,6 +69,7 @@ $(CK): $(OBJ_CK)
 clean:
 	@$(RM) $(OBJ_PS)
 	@$(RM) $(OBJ_CK)
+	@make -C libft/ clean
 	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Cleaning Object files $(CE)";
 
 fclean: clean
