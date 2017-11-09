@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void		refresh_opti(t_path *opti, t_path *temp_w)
+void	refresh_opti(t_path *opti, t_path *temp_w)
 {
 	opti->ra = temp_w->ra;
 	opti->rra = temp_w->rra;
@@ -21,11 +21,11 @@ void		refresh_opti(t_path *opti, t_path *temp_w)
 	opti->total = temp_w->total;
 }
 
-void		find_lowest_path(t_path *opti, t_stack **a, t_stack **b)
+void	find_lowest_path(t_path *opti, t_stack **a, t_stack **b)
 {
 	int			a_size;
 	int			pos;
-	t_path	temp_w;
+	t_path		temp_w;
 	t_stack		*temp_s;
 
 	temp_s = *a;
@@ -45,7 +45,12 @@ void		find_lowest_path(t_path *opti, t_stack **a, t_stack **b)
 	}
 }
 
-static void	fill_a(int b_size, t_stack **a, t_stack **b)
+void	fill_a_end(t_stack **a, t_stack **b)
+{
+	stack_push_a(a, b);
+}
+
+void	fill_aa(int b_size, t_stack **a, t_stack **b)
 {
 	int		min;
 
@@ -54,8 +59,7 @@ static void	fill_a(int b_size, t_stack **a, t_stack **b)
 	{
 		while (min + 1)
 		{
-			stack_rotate(b);
-			write(1, "rb\n", 3);
+			stack_rotate_b(b);
 			min--;
 		}
 	}
@@ -63,33 +67,25 @@ static void	fill_a(int b_size, t_stack **a, t_stack **b)
 	{
 		while (min < b_size - 1)
 		{
-			stack_reverse_rotate(b);
-			write(1, "rrb\n", 4);
+			stack_reverse_rotate_b(b);
 			min++;
 		}
 	}
 	while (*b)
-	{
-		stack_push_to(a, b);
-		write(1, "pa\n", 3);
-	}
+		fill_a_end(a, b);
 }
 
-void		sort_advanced(t_stack **a, t_stack **b)
+void	sort_advanced(t_stack **a, t_stack **b)
 {
 	int			b_size;
 	int			weight;
-	t_path	opti;
+	t_path		opti;
 
 	weight = 0;
-	stack_push_to(b, a);
-	stack_push_to(b, a);
-	write(1, "pb\npb\n", 6);
+	stack_push_b(b, a);
+	stack_push_b(b, a);
 	if ((*b)->data < (*b)->next->data)
-	{
-		stack_reverse_rotate(b);
-		write(1, "rrb\n", 4);
-	}
+		stack_reverse_rotate_b(b);
 	while (*a)
 	{
 		init_path_tab(&opti);
@@ -97,5 +93,5 @@ void		sort_advanced(t_stack **a, t_stack **b)
 		make_moves(&opti, a, b);
 	}
 	b_size = measure_stack(b);
-	fill_a(b_size, a, b);
+	fill_aa(b_size, a, b);
 }

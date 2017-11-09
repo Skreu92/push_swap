@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Etienne <etranchi@student.42.fr>           +#+  +:+       +#+        */
+/*   By: etranchi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 16:45:21 by Etienne           #+#    #+#             */
-/*   Updated: 2017/10/25 16:45:22 by Etienne          ###   ########.fr       */
+/*   Created: 2017/11/08 23:49:55 by etranchi          #+#    #+#             */
+/*   Updated: 2017/11/08 23:49:56 by etranchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-void			call_sort(t_stack **a, t_stack **b)
-{
-	int		stack_size;
-
-	stack_size = measure_stack(a);
-	if (check_sort(a, b))
-		return ;
-	if (stack_size > 10)
-	{
-		sort_advanced(a, b);
-	}
-	else
-	{
-		if (stack_size == 3 && (*a)->next->next->data < (*a)->data &&
-			(*a)->next->next->data < (*a)->next->data &&
-			(*a)->data > (*a)->next->data)
-			stack_swap_a(a);
-		sort_select(a, b);
-	}
-}
 
 static int		fill_a(t_stack **a, char *arg)
 {
@@ -42,8 +21,7 @@ static int		fill_a(t_stack **a, char *arg)
 	{
 		while (arg[index] == ' ')
 			index++;
-		if (ft_atoi(&arg[index]) > INT_MAX || ft_atoi(&arg[index]) < INT_MIN
-			|| !ft_isdigit(arg[index]))
+		if (ft_atoi(&arg[index]) > INT_MAX || ft_atoi(&arg[index]) < INT_MIN)
 			return (0);
 		ft_stack_push_back(a, ft_atoi(&arg[index]));
 		while (arg[index] && arg[index] != ' ')
@@ -85,8 +63,6 @@ int				main(int argc, char **argv)
 		ft_stack_clear(&a);
 		return (0);
 	}
-	call_sort(&a, &b);
-	ft_stack_clear(&a);
-	ft_stack_clear(&b);
+	read_moves(&a, &b);
 	return (0);
 }

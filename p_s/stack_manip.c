@@ -68,22 +68,7 @@ int		measure_stack(t_stack **a)
 	return (size);
 }
 
-
-static int	compare_data(int current, t_stack **a)
-{
-	t_stack *temp;
-
-	temp = *a;
-	while (temp)
-	{
-		if (current > temp->data)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
-
-int			find_min(t_stack **a)
+int		find_min(t_stack **a)
 {
 	int		min;
 	t_stack	*temp;

@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-static void	perform_rr(t_path **opti, t_stack **a, t_stack **b)
+void	perform_rr(t_path **opti, t_stack **a, t_stack **b)
 {
 	while ((*opti)->ra && (*opti)->rb)
 	{
@@ -23,7 +23,7 @@ static void	perform_rr(t_path **opti, t_stack **a, t_stack **b)
 	}
 }
 
-static void	perform_rrr(t_path **opti, t_stack **a, t_stack **b)
+void	perform_rrr(t_path **opti, t_stack **a, t_stack **b)
 {
 	while ((*opti)->rra && (*opti)->rrb)
 	{
@@ -34,32 +34,24 @@ static void	perform_rrr(t_path **opti, t_stack **a, t_stack **b)
 	}
 }
 
-void		make_moves(t_path *opti, t_stack **a, t_stack **b)
+void	make_moves_end(t_stack **a, t_stack **b)
+{
+	stack_push_b(b, a);
+}
+
+void	make_moves(t_path *opti, t_stack **a, t_stack **b)
 {
 	if (opti->ra && opti->rb)
 		perform_rr(&opti, a, b);
 	if (opti->rra && opti->rrb)
 		perform_rrr(&opti, a, b);
 	while (opti->ra--)
-	{
-		stack_rotate(a);
-		write(1, "ra\n", 3);
-	}
+		stack_rotate_a(a);
 	while (opti->rb--)
-	{
-		stack_rotate(b);
-		write(1, "rb\n", 3);
-	}
+		stack_rotate_b(b);
 	while (opti->rra--)
-	{
-		stack_reverse_rotate(a);
-		write(1, "rra\n", 4);
-	}
+		stack_reverse_rotate_a(a);
 	while (opti->rrb--)
-	{
-		stack_reverse_rotate(b);
-		write(1, "rrb\n", 4);
-	}
-	stack_push_to(b, a);
-	write(1, "pb\n", 3);
+		stack_reverse_rotate_b(b);
+	make_moves_end(a, b);
 }

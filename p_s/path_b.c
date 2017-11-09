@@ -97,4 +97,3 @@ void		find_b_path(t_path *current, int data, t_stack **b)
 		assign_b_path(&current, save_pos, b);
 	current->total = current->ra + current->rra + current->rb + current->rrb;
 }
-

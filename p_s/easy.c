@@ -63,23 +63,23 @@ void		sort_select(t_stack **a, t_stack **b)
 	{
 		min = find_min(a);
 		if (min && check_swap_first(a))
-			stack_swap_one(a);
+			stack_swap_a(a);
 		else
 		{
 			if (min > measure_stack(a) - min && (min = measure_stack(a) - min))
 			{
 				while (!check_piles(a, b) && min--)
-					stack_reverse_rotate(a);
+					stack_reverse_rotate_a(a);
 			}
 			else
 			{
 				while (!check_piles(a, b) && min--)
-					stack_rotate(a);
+					stack_rotate_a(a);
 			}
 		}
 		if (!check_piles(a, b))
-			stack_push_to(b, a);
+			stack_push_b(b, a);
 	}
 	while (*b)
-		stack_push_to(a, b);
+		stack_push_a(a, b);
 }

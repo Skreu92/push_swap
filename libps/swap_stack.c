@@ -12,7 +12,33 @@
 
 #include "../push_swap.h"
 
-void stack_swap_one(t_stack **a)
+void	stack_swap_a(t_stack **a)
+{
+	t_stack *second;
+
+	if (*a == NULL || (*a)->next == NULL)
+		return ;
+	second = (*a)->next;
+	(*a)->next = second->next;
+	second->next = *a;
+	*a = second;
+	write(1, "sa\n", 3);
+}
+
+void	stack_swap_b(t_stack **a)
+{
+	t_stack *second;
+
+	if (*a == NULL || (*a)->next == NULL)
+		return ;
+	second = (*a)->next;
+	(*a)->next = second->next;
+	second->next = *a;
+	*a = second;
+	write(1, "sb\n", 3);
+}
+
+void	stack_swap(t_stack **a)
 {
 	t_stack *second;
 
@@ -24,8 +50,8 @@ void stack_swap_one(t_stack **a)
 	*a = second;
 }
 
-void stack_swap_ss(t_stack **a, t_stack **b)
+void	stack_swap_ss(t_stack **a, t_stack **b)
 {
-	stack_swap_one(a);
-	stack_swap_one(b);
+	stack_swap(a);
+	stack_swap(b);
 }

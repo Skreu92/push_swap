@@ -12,12 +12,12 @@
 
 FLAGS= -Wall -Werror -Wextra -O0 -g -fsanitize=address
 
-SRC=libps/swap_stack.c\
+SRC_PS=	p_s/difficult.c\
+	p_s/push_swap.c\
+	libps/swap_stack.c\
 	libps/push_stack.c\
 	libps/rotate_stack.c\
 	libps/reverse_rotate_stack.c\
-	p_s/push_swap.c\
-	p_s/difficult.c\
 	p_s/easy.c\
 	p_s/path_a.c\
 	p_s/path_b.c\
@@ -25,9 +25,21 @@ SRC=libps/swap_stack.c\
 	p_s/check.c\
 	p_s/move.c\
 
-NAME = push_swap 
+SRC_CK = c/checker.c\
+	c/read.c\
+	libps/swap_stack.c\
+	libps/push_stack.c\
+	libps/rotate_stack.c\
+	libps/reverse_rotate_stack.c\
+	p_s/check.c\
+	p_s/stack_manip.c\
+	p_s/easy.c\
+
+PS = push_swap 
+CK = checker
 CC = gcc
-OBJ = $(SRC:.c=.o)
+OBJ_PS = $(SRC_PS:.c=.o)
+OBJ_CK = $(SRC_CK:.c=.o)
 RM = rm -rf
 INC = -I includes/
 FT = -L libft/ -lft
@@ -35,27 +47,35 @@ CG = \033[92m
 CY =  \033[93m
 CE = \033[0m
 
-all: $(NAME)
+all: $(PS) $(CK)
 
-$(NAME): $(OBJ)
+
+$(PS): $(OBJ_PS)
 	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Creating Library$(CE)\033[1A";
 	@make -C libft/ fclean
 	@make -C libft/
-	@$(CC)  $(FLAGS) $(INC) -o $(NAME) $(OBJ) $(FT)
+	@$(CC)  $(FLAGS) $(INC) -o $(PS) $(OBJ_PS) $(FT)
 	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Compiled PS$(CE)";
+
+$(CK): $(OBJ_CK)
+	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Creating Library$(CE)\033[1A";
+	@$(CC)  $(FLAGS) $(INC) -o $(CK) $(OBJ_CK) $(FT)
+	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Compiled CK$(CE)";
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
 	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Compiling $<$(CE) \033[1A";
 
 clean:
-	@$(RM) $(OBJ)
+	@$(RM) $(OBJ_PS)
+	@$(RM) $(OBJ_CK)
 	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Cleaning Object files $(CE)";
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) $(PS)
+	@$(RM) $(CK)
 	@make -C libft/ fclean
-	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Cleaning PS $(CE)";
+	@echo "\033[K$(CY)[PS] :$(CE) $(CG)Cleaning PS/CK $(CE)";
 
 re: fclean all
 

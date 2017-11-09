@@ -95,7 +95,7 @@ int		check_b(t_stack **b)
 	return (1);
 }
 
-t_stack		*ft_create_elm(int data)
+t_stack	*ft_create_elm(int data)
 {
 	t_stack	*new;
 
