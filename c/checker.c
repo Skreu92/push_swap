@@ -21,7 +21,8 @@ static int		fill_a(t_stack **a, char *arg)
 	{
 		while (arg[index] == ' ')
 			index++;
-		if (ft_atoi(&arg[index]) > INT_MAX || ft_atoi(&arg[index]) < INT_MIN)
+		if (!ft_isdigit(arg[index]) ||
+			(ft_atoi(&arg[index]) > INT_MAX || ft_atoi(&arg[index]) < INT_MIN))
 			return (0);
 		ft_stack_push_back(a, ft_atoi(&arg[index]));
 		while (arg[index] && arg[index] != ' ')
