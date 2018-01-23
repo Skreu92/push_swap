@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS= -Wall -Werror -Wextra -O0 -g -fsanitize=address
+FLAGS= -Wall -Werror -Wextra
 
 SRC_PS=	p_s/difficult.c\
 	p_s/push_swap.c\

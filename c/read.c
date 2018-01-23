@@ -36,6 +36,7 @@ void	make_move(char *move, t_stack **a, t_stack **b)
 		stack_reverse_rotate(b);
 	else if (ft_strcmp("rrr", move) == 0)
 		stack_reverse_rotate_both(a, b);
+	free(move);
 }
 
 void	read_moves(t_stack **a, t_stack **b)
@@ -44,7 +45,7 @@ void	read_moves(t_stack **a, t_stack **b)
 
 	while (get_next_line(STDIN_FILENO, &move))
 	{
-		while (!ft_isdigit(move[0]))
+		while (!ft_isascii(move[0]))
 			move++;
 		make_move(move, a, b);
 	}
