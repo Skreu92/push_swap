@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+# include "libft.h"
+
 int		ft_atoi(char *str)
 {
 	int		s;
@@ -33,5 +35,9 @@ int		ft_atoi(char *str)
 		n = n * 10 + str[i] - '0';
 		i++;
 	}
+	if (n * s >= INT_MAX)
+		return (n = INT_MAX);
+	else if (n * s <= INT_MIN)
+		return (n = INT_MIN);
 	return (n * s);
 }

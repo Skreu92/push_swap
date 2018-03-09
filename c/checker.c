@@ -12,23 +12,48 @@
 
 #include "../push_swap.h"
 
+long	ft_atol(char *str)
+{
+	int		s;
+	long	n;
+	int		i;
+
+	i = 0;
+	s = 1;
+	n = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-')
+	{
+		s = -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + str[i] - '0';
+		i++;
+	}
+	return (n * s);
+}
+
 static int		fill_a(t_stack **a, char *arg)
 {
-	int		index;
+	int		i;
 
-	index = 0;
-	while (arg[index])
+	i = 0;
+	while (arg[i])
 	{
-		while (arg[index] == ' ')
-			index++;
-		if (!ft_isdigit(arg[index]) ||
-			(ft_atoi(&arg[index]) > INT_MAX || ft_atoi(&arg[index]) < INT_MIN))
+		while (arg[i] == ' ')
+			i++;
+		if ((ft_atol(&arg[i]) > INT_MAX || ft_atol(&arg[i]) < INT_MIN))
 			return (0);
-		ft_stack_push_back(a, ft_atoi(&arg[index]));
-		while (arg[index] && arg[index] != ' ')
-			index++;
-		while (arg[index] && arg[index] == ' ')
-			index++;
+		ft_stack_push_back(a, ft_atol(&arg[i]));
+		while (arg[i] && arg[i] != ' ')
+			i++;
+		while (arg[i] && arg[i] == ' ')
+			i++;
 	}
 	if (!check_repetition(a))
 		return (0);

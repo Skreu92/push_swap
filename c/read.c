@@ -36,6 +36,11 @@ void	make_move(char *move, t_stack **a, t_stack **b)
 		stack_reverse_rotate(b);
 	else if (ft_strcmp("rrr", move) == 0)
 		stack_reverse_rotate_both(a, b);
+	else
+	{
+		write(1, "Error\n", 6);
+		exit(-1);
+	}
 	free(move);
 }
 
