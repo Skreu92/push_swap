@@ -44,14 +44,23 @@ void	make_move(char *move, t_stack **a, t_stack **b)
 	free(move);
 }
 
+void ft_kill(char *str)
+{
+	write(1, str, ft_strlen(str));
+	exit(1);
+}
+
 void	read_moves(t_stack **a, t_stack **b)
 {
 	char *move;
+	int i;
 
+	i = -1;
 	while (get_next_line(STDIN_FILENO, &move))
 	{
-		while (!ft_isascii(move[0]))
-			move++;
+		while(move[++i])
+			if(move[i] == ' ')
+				ft_kill("Errora\n");
 		make_move(move, a, b);
 	}
 	if (check_sort(a, b))
